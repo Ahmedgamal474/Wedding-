@@ -13,7 +13,7 @@ html{height:100%;scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-t
 *{box-sizing:border-box}
 body{margin:0;min-height:100%;font-family:'Cairo',Tahoma,sans-serif;color:var(--ink);background:linear-gradient(135deg,#fff8ec,#f6e4c3,#fbeedd,#f1dcd6,#fff8ec);background-size:400% 400%;animation:bg 18s ease infinite;text-align:center;overflow-x:hidden}
 @keyframes bg{50%{background-position:100% 50%}}
-.blob{position:fixed;width:46vmax;height:46vmax;border-radius:50%;filter:blur(70px);opacity:.45;z-index:0;pointer-events:none;animation:drift 14s ease-in-out infinite alternate}
+.blob{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(70px);opacity:.45;z-index:0;pointer-events:none;animation:drift 14s ease-in-out infinite alternate}
 @keyframes drift{to{transform:translate(12vw,10vh) scale(1.2)}}
 #fw{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 .sec,main{position:relative;z-index:3}
@@ -50,27 +50,31 @@ textarea{min-height:110px;resize:vertical}
 .w b{color:var(--gold)}
 .rv{opacity:0;transform:translateY(34px);transition:opacity 1s,transform 1s}
 .rv.in{opacity:1;transform:none}
-.heart{position:fixed;bottom:-30px;color:#e57a92;opacity:.45;animation:up linear infinite;pointer-events:none;z-index:1}
+.heart{position:absolute;bottom:-30px;color:#e57a92;opacity:.45;animation:up linear infinite;pointer-events:none;z-index:1}
 @keyframes up{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
 #mute{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:12px;z-index:10;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);background:var(--card);font-size:20px;display:none;cursor:pointer}
 .pic{width:100%;max-width:380px;border-radius:28px;border:4px solid #fff;box-shadow:0 14px 40px rgba(184,134,59,.3)}
 .stk{width:min(70vw,300px);animation:wave 1.2s ease-in-out infinite}
 @keyframes wave{50%{transform:rotate(-8deg) scale(1.05)}}
-.cf{position:fixed;top:-40px;z-index:30;pointer-events:none;animation:fall linear forwards}
+.cf{position:absolute;top:-40px;z-index:30;pointer-events:none;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(112vh) rotate(360deg)}}
 .names,.big{background:linear-gradient(100deg,#b8863b,#e7c36e,#b8863b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:shine 5s linear infinite}
 @keyframes shine{to{background-position:200% center}}
 .names .amp{-webkit-text-fill-color:var(--gold)}
 .cal{display:inline-block;margin-top:12px;color:var(--gold);font-weight:700;text-decoration:none;border:1px solid var(--gold);border-radius:30px;padding:9px 22px;font-size:16px}
-.dn{position:fixed;z-index:1;pointer-events:none;opacity:.85;animation:dance 1s ease-in-out infinite alternate;transform-origin:bottom center}
+.dn{position:absolute;z-index:1;pointer-events:none;opacity:.85;animation:dance 1s ease-in-out infinite alternate;transform-origin:bottom center}
 @keyframes dance{0%{transform:rotate(-12deg) translateY(0)}100%{transform:rotate(12deg) translateY(-14px)}}
-.fl{position:fixed;bottom:-40px;z-index:1;pointer-events:none;opacity:.7;animation:up linear infinite}
+.fl{position:absolute;bottom:-40px;z-index:1;pointer-events:none;opacity:.7;animation:up linear infinite}
 .pic.hero{max-width:340px;margin:14px 0 8px;border:3px solid var(--gold);box-shadow:0 14px 40px rgba(59,42,34,.35)}
 .st2{width:min(80vw,340px);filter:drop-shadow(0 8px 14px rgba(59,42,34,.25))}
+#bg,#bg2{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+#bg{z-index:0}
+#fx{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:30}
+html,body{max-width:100%;overflow-x:hidden}
 </style>
 </head>
 <body>
-<audio id="song" loop preload="auto" src="song.mp3"></audio>
+<audio id="song" loop preload="auto" playsinline src="song.mp3"></audio>
 <button id="mute" aria-label="sound">🔊</button>
 
 <div id="cover">
@@ -80,9 +84,10 @@ textarea{min-height:110px;resize:vertical}
   <button class="btn" id="openBtn">افتح الدعوة 💌</button>
 </div>
 
-<div class="blob" style="background:#e0b25a;top:-12vmax;right:-14vmax"></div><div class="blob" style="background:#8aa1c9;bottom:-14vmax;left:-14vmax;animation-delay:-5s"></div><div class="blob" style="background:#d9a08a;top:40vh;left:20vw;animation-delay:-9s"></div>
+<div id="bg"><div class="blob" style="background:#e0b25a;top:-12vmax;right:-14vmax"></div><div class="blob" style="background:#8aa1c9;bottom:-14vmax;left:-14vmax;animation-delay:-5s"></div><div class="blob" style="background:#d9a08a;top:40vh;left:20vw;animation-delay:-9s"></div>
+</div>
 <canvas id="fw"></canvas>
-<div class="dn" style="left:2vw;bottom:2vh;font-size:56px">💃</div>
+<div id="bg2"><div class="dn" style="left:2vw;bottom:2vh;font-size:56px">💃</div>
 <div class="dn" style="right:2vw;bottom:2vh;font-size:56px;animation-delay:-.4s">🕺</div>
 <div class="dn" style="left:3vw;top:28vh;font-size:40px;animation-delay:-.7s">🕺</div>
 <div class="dn" style="right:3vw;top:34vh;font-size:40px;animation-delay:-.2s">💃</div>
@@ -93,6 +98,8 @@ textarea{min-height:110px;resize:vertical}
 <div class="fl" style="left:78vw;font-size:24px;animation-duration:13s;animation-delay:-7s">✨</div>
 <div class="fl" style="left:90vw;font-size:26px;animation-duration:11s;animation-delay:-5s">🎶</div>
 
+</div>
+<div id="fx"></div>
 <main id="main">
 <section class="sec">
   <div class="eyebrow rv">💍 You're Invited 💍</div>
@@ -185,11 +192,18 @@ document.querySelectorAll(".rv").forEach(function(e){io.observe(e)});
 
 $("openBtn").onclick=function(){
   $("cover").classList.add("hide");
-  audio.play().catch(function(){});startFW();
+  var pl=audio.play();
+  if(pl&&pl.catch)pl.catch(function(){
+    $("mute").textContent="🔇";
+    var retry=function(){audio.play().then(function(){$("mute").textContent="🔊"}).catch(function(){});
+      document.removeEventListener("touchstart",retry);document.removeEventListener("click",retry)};
+    document.addEventListener("touchstart",retry);document.addEventListener("click",retry);
+  });
+  startFW();
   $("mute").style.display="block";
   for(var i=0;i<14;i++){var h=document.createElement("div");h.className="heart";h.textContent="♥";
     h.style.left=Math.random()*100+"vw";h.style.fontSize=(14+Math.random()*20)+"px";
-    h.style.animationDuration=(7+Math.random()*7)+"s";h.style.animationDelay=(Math.random()*6)+"s";document.body.appendChild(h)}
+    h.style.animationDuration=(7+Math.random()*7)+"s";h.style.animationDelay=(Math.random()*6)+"s";$("bg2").appendChild(h)}
 };
 $("mute").onclick=function(){if(audio.paused){audio.play();this.textContent="🔊"}else{audio.pause();this.textContent="🔇"}};
 
