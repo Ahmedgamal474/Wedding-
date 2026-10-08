@@ -6,6 +6,8 @@
 <meta property="og:description" content="افتح الدعوة 💌">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Abdelrahman &amp; Heba — Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@500;700&family=Amiri:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg1:#fff8ec;--bg2:#f3e0bd;color-scheme:light;--ink:#3b2a22;--gold:#b8863b;--card:rgba(255,255,255,.78);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -74,7 +76,7 @@ html,body{max-width:100%;overflow-x:hidden}
 </style>
 </head>
 <body>
-<audio id="song" loop preload="auto" playsinline src="song.mp3"></audio>
+<audio id="song" loop preload="none" playsinline src="song.mp3"></audio>
 <button id="mute" aria-label="sound">🔊</button>
 
 <div id="cover">
@@ -133,14 +135,14 @@ html,body{max-width:100%;overflow-x:hidden}
 
 <section class="sec">
   <div class="h2 rv">Since Forever 🥹💕</div>
-  <img class="pic rv" alt="" src="img2.jpg">
+  <img class="pic rv" alt="" loading="lazy" decoding="async" src="img2.jpg">
   <div class="rv" style="margin-top:20px;font-size:21px;font-weight:700">حكايتنا بدأت من زمان أوي 😍👰🤵</div>
 </section>
 
 
 <section class="sec">
   <div class="h2 rv">Let's Dance 💃🕺</div>
-  <img class="stk rv" alt="" src="img3.webp">
+  <img class="stk rv" alt="" loading="lazy" decoding="async" src="img3.webp">
   <div class="rv" style="font-size:26px;font-weight:700;margin-top:10px">الفرح كله رقص ورقص ورقص! 🎶🔥</div>
   <div class="rv" style="font-size:19px;margin-top:8px">جهّزوا نفسكم ونسّوا أي حاجة غير الفرحة 🕺💃🎉</div>
 </section>
@@ -167,7 +169,7 @@ html,body{max-width:100%;overflow-x:hidden}
     <div id="msg"></div>
   </form>
   <div id="thanks" class="dcard" style="display:none">
-    <img class="st2" style="width:min(55vw,220px)" alt="" src="img4.webp">
+    <img class="st2" style="width:min(55vw,220px)" alt="" loading="lazy" decoding="async" src="img4.webp">
     <div class="big" style="font-size:34px;margin:8px 0">الرسالة وصلت!</div>
     <p>تسلم يا غالي، كلامك وصل للعروسين 💖</p>
     <p>نشوفك في الفرح 🕺💃🎉</p>
@@ -186,7 +188,7 @@ function tick(){var x=Math.max(0,target-Date.now());
 $("d").textContent=Math.floor(x/864e5);$("h").textContent=Math.floor(x/36e5%24);
 $("m").textContent=Math.floor(x/6e4%60);$("s").textContent=Math.floor(x/1e3%60)}
 tick();setInterval(tick,1000);
-try{fetch("song.mp3").catch(function(){});audio.load()}catch(e){}
+addEventListener("load",function(){setTimeout(function(){try{audio.load()}catch(e){}},1500)});
 
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add("in")})},{threshold:.2});
 document.querySelectorAll(".rv").forEach(function(e){io.observe(e)});
