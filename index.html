@@ -20,20 +20,35 @@ body{margin:0;min-height:100%;font-family:'Cairo',Tahoma,sans-serif;color:var(--
 #fw{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 .sec,main{position:relative;z-index:3}
 .sec{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 22px;position:relative}
-#cover{position:fixed;inset:0;z-index:20;background:linear-gradient(160deg,var(--bg1),var(--bg2));display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .9s,visibility .9s}
+
+/* ===== Cover + real opening envelope ===== */
+#cover{position:fixed;inset:0;z-index:20;background:linear-gradient(160deg,var(--bg1),var(--bg2));display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .9s,visibility .9s;overflow:hidden}
 #cover.hide{opacity:0;visibility:hidden}
-.env{font-size:86px;line-height:1;animation:float 2.5s ease-in-out infinite}
+.cv{font-family:'Great Vibes',cursive;font-size:clamp(44px,14vw,64px);text-align:center;line-height:1.1;color:var(--gold);margin:12px 0 4px;direction:ltr}
+.small{font-size:17px;opacity:.85;margin-bottom:26px;transition:opacity .5s}
+.envwrap{position:relative;width:min(78vw,300px);height:200px;margin:120px 0 34px;perspective:1000px;animation:float 2.5s ease-in-out infinite}
+#cover.open .envwrap{animation:none}
 @keyframes float{50%{transform:translateY(-10px)}}
-.cv{font-family:'Great Vibes',cursive;font-size:clamp(44px,14vw,64px);text-align:center;line-height:1.1;color:var(--gold);margin:12px 0 4px}
-.small{font-size:17px;opacity:.85;margin-bottom:26px}
-.btn{font-family:inherit;font-size:19px;font-weight:700;color:#fff;background:linear-gradient(135deg,#c9976a,var(--gold));border:0;border-radius:40px;padding:13px 36px;box-shadow:0 8px 24px rgba(184,134,59,.4);cursor:pointer}
+.eback{position:absolute;inset:0;background:#dcc08c;border-radius:6px;box-shadow:0 18px 40px rgba(59,42,34,.28)}
+.paper{position:absolute;left:7%;width:86%;top:14%;height:170px;background:linear-gradient(180deg,#fffdf7,#fbf1dc);border-radius:6px;z-index:2;box-shadow:0 2px 10px rgba(59,42,34,.2);padding:14px 8px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;transition:transform 1s cubic-bezier(.3,.8,.3,1) .7s}
+#cover.open .paper{transform:translateY(-135px)}
+.paper .pt{font-family:'Cormorant Garamond',serif;letter-spacing:4px;font-size:12px;color:var(--gold);direction:ltr}
+.paper .pd{font-family:'Cormorant Garamond',serif;font-size:62px;font-weight:700;line-height:1;color:var(--gold);margin:2px 0}
+.paper .pm{font-family:'Cormorant Garamond',serif;font-size:19px;letter-spacing:3px;direction:ltr}
+.paper .pw{font-size:15px;margin-top:4px}
+.pocket{position:absolute;inset:0;z-index:3;border-radius:6px;background:linear-gradient(160deg,#ebd3a2,#d9bb84);clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%)}
+.pocket::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.18),transparent 30%,transparent 70%,rgba(0,0,0,.08))}
+.flap{position:absolute;left:0;right:0;top:0;height:56%;z-index:4;transform-origin:top center;background:linear-gradient(180deg,#e4c88f,#d2b27a);clip-path:polygon(0 0,100% 0,50% 100%);transition:transform .8s ease,z-index 0s .4s}
+#cover.open .flap{transform:rotateX(180deg);z-index:1}
+.seal{position:absolute;left:50%;top:56%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;z-index:5;background:radial-gradient(circle at 35% 30%,#d9534f,#9c1f1f);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.35);transition:opacity .3s}
+#cover.open .seal{opacity:0}
+#cover.open .small,#cover.open .btn{opacity:0;pointer-events:none}
+.btn{font-family:inherit;font-size:19px;font-weight:700;color:#fff;background:linear-gradient(135deg,#c9976a,var(--gold));border:0;border-radius:40px;padding:13px 36px;box-shadow:0 8px 24px rgba(184,134,59,.4);cursor:pointer;transition:opacity .4s}
 .script{font-family:'Great Vibes',cursive;color:var(--gold)}
 .names{font-family:'Great Vibes',cursive;font-size:clamp(72px,24vw,130px);line-height:1.05;margin:8px 0;direction:ltr}
 .names .amp{display:block;font-family:'Cormorant Garamond',serif;font-size:.35em;color:var(--gold)}
 .eyebrow{font-family:'Cormorant Garamond',serif;letter-spacing:5px;font-size:15px;text-transform:uppercase;color:var(--gold);direction:ltr}
 .hint{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);font-size:26px;color:var(--gold);animation:float 1.8s infinite}
-.ayah{font-family:'Amiri',serif;font-size:clamp(22px,6vw,30px);line-height:2.1;max-width:460px}
-.src{font-size:14px;opacity:.7;margin-top:10px}
 .line{width:70px;height:2px;background:var(--gold);margin:22px auto;border-radius:2px}
 .h2{font-family:'Cormorant Garamond',serif;font-size:30px;letter-spacing:3px;color:var(--gold);margin:0 0 18px;direction:ltr}
 .timer{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:400px;direction:ltr}
@@ -47,9 +62,6 @@ form{width:100%;max-width:400px;display:flex;flex-direction:column;gap:12px}
 input,textarea{font-family:inherit;font-size:17px;color:var(--ink);background:var(--card);border:1px solid var(--gold);border-radius:14px;padding:13px 14px;width:100%;direction:rtl}
 textarea{min-height:110px;resize:vertical}
 #msg{min-height:22px;font-size:16px}
-#wall{width:100%;max-width:400px;margin-top:16px;display:flex;flex-direction:column;gap:10px;max-height:260px;overflow-y:auto;text-align:right}
-.w{background:var(--card);border-radius:14px;padding:10px 14px;font-size:16px}
-.w b{color:var(--gold)}
 .rv{opacity:0;transform:translateY(34px);transition:opacity 1s,transform 1s}
 .rv.in{opacity:1;transform:none}
 .heart{position:absolute;bottom:-30px;color:#e57a92;opacity:.45;animation:up linear infinite;pointer-events:none;z-index:1}
@@ -60,19 +72,42 @@ textarea{min-height:110px;resize:vertical}
 @keyframes wave{50%{transform:rotate(-8deg) scale(1.05)}}
 .cf{position:absolute;top:-40px;z-index:30;pointer-events:none;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(112vh) rotate(360deg)}}
-.names,.big{background:linear-gradient(100deg,#b8863b,#e7c36e,#b8863b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:shine 5s linear infinite}
+.names,.big,.paper .pd{background:linear-gradient(100deg,#b8863b,#e7c36e,#b8863b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:shine 5s linear infinite}
 @keyframes shine{to{background-position:200% center}}
 .names .amp{-webkit-text-fill-color:var(--gold)}
 .cal{display:inline-block;margin-top:12px;color:var(--gold);font-weight:700;text-decoration:none;border:1px solid var(--gold);border-radius:30px;padding:9px 22px;font-size:16px}
 .dn{position:absolute;z-index:1;pointer-events:none;opacity:.85;animation:dance 1s ease-in-out infinite alternate;transform-origin:bottom center}
 @keyframes dance{0%{transform:rotate(-12deg) translateY(0)}100%{transform:rotate(12deg) translateY(-14px)}}
 .fl{position:absolute;bottom:-40px;z-index:1;pointer-events:none;opacity:.7;animation:up linear infinite}
-.pic.hero{max-width:340px;margin:14px 0 8px;border:3px solid var(--gold);box-shadow:0 14px 40px rgba(59,42,34,.35)}
 .st2{width:min(80vw,340px);filter:drop-shadow(0 8px 14px rgba(59,42,34,.25))}
 #bg,#bg2{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:1}
 #bg{z-index:0}
 #fx{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:30}
 html,body{max-width:100%;overflow-x:hidden}
+
+/* ===== Translucent paper that came out of the envelope ===== */
+.vellum{position:relative;width:100%;max-width:380px;padding:34px 22px 30px;border-radius:8px;
+  background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,.22));
+  -webkit-backdrop-filter:blur(9px) saturate(1.15);backdrop-filter:blur(9px) saturate(1.15);
+  border:1px solid rgba(255,255,255,.85);
+  box-shadow:0 22px 50px rgba(59,42,34,.22),inset 0 0 0 7px rgba(255,255,255,.18),inset 0 0 0 8px rgba(184,134,59,.35);
+  display:flex;flex-direction:column;align-items:center;transform-origin:top center}
+.vellum.rv{transform:translateY(60px) rotate(-1.5deg)}
+.vellum.rv.in{transform:rotate(0)}
+.vellum::before{content:"";position:absolute;left:0;right:0;top:34%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);opacity:.7;pointer-events:none}
+.vellum .pic.hero{max-width:300px;margin:14px 0 8px;border:3px solid #fff;border-radius:6px;box-shadow:0 8px 24px rgba(59,42,34,.3)}
+
+/* ===== Background photo frames ===== */
+.frame{position:absolute;width:clamp(84px,21vw,170px);padding:5px;background:linear-gradient(135deg,#e7c36e,#b8863b 50%,#e7c36e);border-radius:3px;box-shadow:0 10px 26px rgba(59,42,34,.35);opacity:.8;animation:sway 7s ease-in-out infinite alternate;transform-origin:top center}
+.frame::before{content:"";position:absolute;inset:5px;border:3px solid #fffdf7;z-index:1;pointer-events:none}
+.frame img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;filter:sepia(.18) contrast(.95)}
+.frame::after{content:"";position:absolute;left:50%;top:-9px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f4dca0,#8a5f1f);box-shadow:0 2px 3px rgba(0,0,0,.4)}
+@keyframes sway{from{transform:rotate(var(--r,-6deg))}to{transform:rotate(calc(var(--r,-6deg) + 3deg))}}
+.f1{left:-14px;top:6vh;--r:-8deg}
+.f2{right:-14px;top:19vh;--r:6deg;animation-delay:-2s}
+.f3{left:-14px;top:47vh;--r:5deg;animation-delay:-4s}
+.f4{right:-14px;top:60vh;--r:-5deg;animation-delay:-1s}
+@media(min-width:760px){.f1{left:4vw}.f2{right:4vw}.f3{left:6vw}.f4{right:6vw}}
 </style>
 </head>
 <body>
@@ -80,34 +115,49 @@ html,body{max-width:100%;overflow-x:hidden}
 <button id="mute" aria-label="sound">🔊</button>
 
 <div id="cover">
-  <div class="env">💌</div>
   <div class="cv">Abdelrahman &amp; Heba</div>
   <div class="small">معاكم دعوة مخصوص ليكم 🎊</div>
-  <button class="btn" id="openBtn">افتح الدعوة 💌</button>
+  <div class="envwrap">
+    <div class="eback"></div>
+    <div class="paper">
+      <div class="pt">SAVE THE DATE</div>
+      <div class="pd">12</div>
+      <div class="pm">NOVEMBER 2026</div>
+      <div class="pw">يوم الخميس · الساعة ٦ مساءً</div>
+    </div>
+    <div class="pocket"></div>
+    <div class="flap"></div>
+    <div class="seal">♥</div>
+  </div>
+  <button class="btn" id="openBtn">افتح الظرف 💌</button>
 </div>
 
 <div id="bg"><div class="blob" style="background:#e0b25a;top:-12vmax;right:-14vmax"></div><div class="blob" style="background:#8aa1c9;bottom:-14vmax;left:-14vmax;animation-delay:-5s"></div><div class="blob" style="background:#d9a08a;top:40vh;left:20vw;animation-delay:-9s"></div>
 </div>
 <canvas id="fw"></canvas>
-<div id="bg2"><div class="dn" style="left:2vw;bottom:2vh;font-size:56px">💃</div>
+<div id="bg2">
+<div class="frame f1"><img src="frame1.jpg" alt=""></div>
+<div class="frame f2"><img src="frame2.jpg" alt=""></div>
+<div class="frame f3"><img src="frame3.jpg" alt=""></div>
+<div class="frame f4"><img src="frame4.jpg" alt=""></div>
+<div class="dn" style="left:2vw;bottom:2vh;font-size:56px">💃</div>
 <div class="dn" style="right:2vw;bottom:2vh;font-size:56px;animation-delay:-.4s">🕺</div>
-<div class="dn" style="left:3vw;top:28vh;font-size:40px;animation-delay:-.7s">🕺</div>
-<div class="dn" style="right:3vw;top:34vh;font-size:40px;animation-delay:-.2s">💃</div>
 <div class="dn" style="left:40vw;bottom:1vh;font-size:44px;animation-delay:-.5s">🪩</div>
 <div class="fl" style="left:12vw;font-size:26px;animation-duration:9s">🎶</div>
 <div class="fl" style="left:30vw;font-size:22px;animation-duration:12s;animation-delay:-4s">🎉</div>
 <div class="fl" style="left:55vw;font-size:28px;animation-duration:10s;animation-delay:-2s">🎵</div>
 <div class="fl" style="left:78vw;font-size:24px;animation-duration:13s;animation-delay:-7s">✨</div>
 <div class="fl" style="left:90vw;font-size:26px;animation-duration:11s;animation-delay:-5s">🎶</div>
-
 </div>
 <div id="fx"></div>
 <main id="main">
 <section class="sec">
-  <div class="eyebrow rv">💍 You're Invited 💍</div>
-  <div class="names rv">Abdelrahman<span class="amp">&amp;</span>Heba</div>
-  <img class="pic hero rv" alt="" src="img1.jpg">
-  <div class="rv" style="font-size:22px;font-weight:700;margin-top:6px">بيدعوكم تشاركوهم أحلى يوم في عمرهم 🥰🎉</div>
+  <div class="vellum rv">
+    <div class="eyebrow">💍 You're Invited 💍</div>
+    <div class="names">Abdelrahman<span class="amp">&amp;</span>Heba</div>
+    <img class="pic hero" alt="" src="img1.jpg">
+    <div style="font-size:21px;font-weight:700;margin-top:6px">بيدعوكم تشاركوهم أحلى يوم في عمرهم 🥰🎉</div>
+  </div>
   <div class="hint">⌄</div>
 </section>
 
@@ -117,7 +167,7 @@ html,body{max-width:100%;overflow-x:hidden}
     <div style="font-size:54px">🏛️✨</div>
     <div class="big" style="font-size:54px;letter-spacing:6px">LUMIRA</div>
     <p>الفرح في قاعة لوميرا 💃🕺</p>
-    <a class="btn" style="display:inline-block;text-decoration:none;margin-top:14px;font-size:17px" href="https://maps.app.goo.gl/L84w2hytvmYBC1sEA?g_st=ac" target="_blank" rel="noopener">افتح اللوكيشن 🗺️</a><br><a class="cal" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D9%81%D8%B1%D8%AD+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86+%D9%88%D9%87%D8%A8%D8%A9+%F0%9F%92%8D&dates=20261112T180000Z/20261112T210000Z&location=LUMIRA">ضيف الفرح لتقويمك 📅</a>
+    <a class="btn" style="display:inline-block;text-decoration:none;margin-top:14px;font-size:17px" href="https://maps.app.goo.gl/L84w2hytvmYBC1sEA?g_st=ac" target="_blank" rel="noopener">افتح اللوكيشن 🗺️</a><br><a class="cal" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D9%81%D8%B1%D8%AD+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86+%D9%88%D9%87%D8%A8%D8%A9+%F0%9F%92%8D&dates=20261112T180000/20261112T210000&ctz=Africa/Cairo&location=LUMIRA">ضيف الفرح لتقويمك 📅</a>
   </div>
 </section>
 
@@ -129,14 +179,8 @@ html,body{max-width:100%;overflow-x:hidden}
     <div class="big">12</div>
     <p style="font-family:'Cormorant Garamond',serif;font-size:30px;letter-spacing:4px;direction:ltr">NOVEMBER 2026</p>
     <p style="font-size:16px;opacity:.8">١٢ نوفمبر ٢٠٢٦</p>
+    <p style="font-size:18px;font-weight:700">🕕 الساعة ٦ مساءً</p>
   </div>
-</section>
-
-
-<section class="sec">
-  <div class="h2 rv">Since Forever 🥹💕</div>
-  <img class="pic rv" alt="" loading="lazy" decoding="async" src="img2.jpg">
-  <div class="rv" style="margin-top:20px;font-size:21px;font-weight:700">حكايتنا بدأت من زمان أوي 😍👰🤵</div>
 </section>
 
 
@@ -177,13 +221,11 @@ html,body{max-width:100%;overflow-x:hidden}
   <div class="script rv" style="font-size:44px;margin-top:30px;direction:ltr">Abdelrahman &amp; Heba</div>
 </section>
 
-
-
 </main>
 
 <script>
 var $=function(i){return document.getElementById(i)};
-var audio=$("song"),target=new Date(2026,10,12,20,0,0).getTime();
+var audio=$("song"),target=new Date(2026,10,12,18,0,0).getTime();
 function tick(){var x=Math.max(0,target-Date.now());
 $("d").textContent=Math.floor(x/864e5);$("h").textContent=Math.floor(x/36e5%24);
 $("m").textContent=Math.floor(x/6e4%60);$("s").textContent=Math.floor(x/1e3%60)}
@@ -193,8 +235,11 @@ addEventListener("load",function(){setTimeout(function(){try{audio.load()}catch(
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add("in")})},{threshold:.2});
 document.querySelectorAll(".rv").forEach(function(e){io.observe(e)});
 
+var opened=false;
 $("openBtn").onclick=function(){
-  $("cover").classList.add("hide");
+  if(opened)return;opened=true;
+  $("cover").classList.add("open");
+  /* sound starts on the tap (needed by mobile browsers) */
   var pl=audio.play();
   if(pl&&pl.catch)pl.catch(function(){
     $("mute").textContent="🔇";
@@ -202,14 +247,23 @@ $("openBtn").onclick=function(){
       document.removeEventListener("touchstart",retry);document.removeEventListener("click",retry)};
     document.addEventListener("touchstart",retry);document.addEventListener("click",retry);
   });
-  startFW();
-  $("mute").style.display="block";
-  for(var i=0;i<14;i++){var h=document.createElement("div");h.className="heart";h.textContent="♥";
-    h.style.left=Math.random()*100+"vw";h.style.fontSize=(14+Math.random()*20)+"px";
-    h.style.animationDuration=(7+Math.random()*7)+"s";h.style.animationDelay=(Math.random()*6)+"s";$("bg2").appendChild(h)}
+  /* envelope opens, date shows for a moment, then the site appears */
+  setTimeout(function(){
+    $("cover").classList.add("hide");
+    startFW();
+    $("mute").style.display="block";
+    for(var i=0;i<14;i++){var h=document.createElement("div");h.className="heart";h.textContent="♥";
+      h.style.left=Math.random()*100+"vw";h.style.fontSize=(14+Math.random()*20)+"px";
+      h.style.animationDuration=(7+Math.random()*7)+"s";h.style.animationDelay=(Math.random()*6)+"s";$("bg2").appendChild(h)}
+  },3800);
 };
 $("mute").onclick=function(){if(audio.paused){audio.play();this.textContent="🔊"}else{audio.pause();this.textContent="🔇"}};
 
+function confetti(){var fx=$("fx"),c=["🎉","💖","✨","🎊","💍","🌸"];
+  for(var i=0;i<40;i++){var e=document.createElement("div");e.className="cf";e.textContent=c[i%c.length];
+    e.style.left=Math.random()*100+"vw";e.style.fontSize=(18+Math.random()*18)+"px";
+    e.style.animationDuration=(2.5+Math.random()*2.5)+"s";e.style.animationDelay=(Math.random()*.8)+"s";
+    fx.appendChild(e);(function(n){setTimeout(function(){n.remove()},6500)})(e)}}
 
 (function(){var cv=$("fw"),cx=cv.getContext("2d"),W,H,P=[],run=false;
 function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();
